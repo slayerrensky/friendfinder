@@ -22,7 +22,10 @@ class data extends CI_Controller {
 	// hallo world
 	public function index()
 	{
-		echo 'Hello World!';
+		echo 'Help'.'<br/>';
+		echo 'http://localhost/friendfinder/index.php/data/getLastPositions'.'<br/>';
+		echo 'http://localhost/friendfinder/index.php/data/putPosition/12.4/12.5/xyz'.'<br/>';
+		echo 'http://localhost/friendfinder/index.php/data/addUser/rensky/Rene/Galow/xyzxv'.'<br/>';
 	}
 	
 	public function addUser($userName,$vorname,$nachname,$identifire)
