@@ -10,11 +10,13 @@
 	
 	public function getLastPositions()
 	{
-		$query = "SELECT * FROM ( 
-				  SELECT * FROM `location` 
-				  ORDER BY `TimeStamp` DESC 
-				  ) as inv
-				  GROUP BY `UserID`";
+		$query =   "SELECT user.Username, user.Vorname, user.Name, user.Identifier, `Latitude`, `Longitude`,`TimeStamp` FROM ( 
+						SELECT * FROM `location`
+						ORDER BY `TimeStamp` DESC 
+						) as tab
+					inner join user on tab.UserID = user.ID
+					GROUP BY `UserID`";
+				  
 		
 		$DBAnswer = $this -> db -> query($query);
         $DBAnswer = $DBAnswer -> result_array();
