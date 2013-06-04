@@ -28,11 +28,11 @@ class data extends CI_Controller {
 		echo 'http://localhost/friendfinder/index.php/data/addUser/rensky/Rene/Galow/xyzxv'.'<br/>';
 	}
 	
-	public function addUser($userName,$vorname,$nachname,$identifire)
+	public function addUser($userName,$vorname,$nachname,$identifier)
 	{
 		 	if(!$this -> User_model ->getUserIDByIdentifier($identifire) )
 			{
-		 		$value = $this -> User_model ->addUser($userName, $vorname, $nachname, $identifire);
+		 		$value = $this -> User_model ->addUser($userName, $vorname, $nachname, $identifier);
 		 		echo '{"value":'.$value.'}';
 			}
 			else
@@ -40,6 +40,19 @@ class data extends CI_Controller {
 				echo '{"error":"Identifire exist in Database."}';
 			}
 	}
+	
+	public function userDataFromIdentifier ($identifier)
+	{
+			if($data = $this -> User_model ->getUserDataByIdentifier($identifier) )
+			{
+		 		echo json_encode($data);
+			}
+			else
+			{
+				echo '{"error":"Identifire exist in Database."}';
+			}
+	}
+	
 	
 	public function putPosition($lat, $lon, $identifire)
 	{

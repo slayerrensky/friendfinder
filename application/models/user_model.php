@@ -28,8 +28,28 @@ class user_model extends CI_Model {
 		else {
 			return False;
 		}
+	}
 
-    }
+	public function getUserDataByIdentifier($identifier = FALSE) {
+
+        if ($identifier == FALSE ) {
+            return FALSE;
+        }
+
+        //first step, get the Salt from DB
+        $query = "SELECT * from `user` WHERE Identifier='" . $identifier . "';";
+
+        $DBAnswer = $this -> db -> query($query);
+
+        if ($tmp = $this -> db -> affected_rows() == 1) {
+            $DBAnswer = $DBAnswer -> result_array();
+	        return $DBAnswer;
+            
+        }// wenn es weniger oder mehr als ein result kommt, abbrechen
+		else {
+			return False;
+		}
+	}
 
     public function getIDfromUsername($userName = FALSE) {
         if ($userName == FALSE) {
@@ -56,7 +76,7 @@ class user_model extends CI_Model {
             return FALSE;
         }
 		
-        $query = "INSERT INTO `user` (ID, UserName, Name, Vorname, Identifier) VALUES (null,'$userName', '$vorname', 'nachname', '$identifier');";
+        $query = "INSERT INTO `user` (ID, UserName, Name, Vorname, Identifier) VALUES (null,'$userName', '$vorname', '$nachname', '$identifier');";
 
         $DBAnswer = $this -> db -> query($query);
 
