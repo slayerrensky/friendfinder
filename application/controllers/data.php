@@ -30,7 +30,7 @@ class data extends CI_Controller {
 	
 	public function addUser($userName,$vorname,$nachname,$identifier)
 	{
-		 	if(!$this -> User_model ->getUserIDByIdentifier($identifire) )
+		 	if(!$this -> User_model ->getUserIDByIdentifier($identifier) )
 			{
 		 		$value = $this -> User_model ->addUser($userName, $vorname, $nachname, $identifier);
 		 		echo '{"value":'.$value.'}';
