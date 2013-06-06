@@ -33,9 +33,6 @@ class data extends CI_Controller {
 			$cou=$this -> User_model ->getUserDataByIdentifier($identifier);
 			if (is_array($cou))
 			{
-				echo "<pre>";
-				echo print_r($cou);
-				echo "</pre>";
 			$id = $cou[0]["ID"];
 			}
 			else
