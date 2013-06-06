@@ -30,14 +30,32 @@ class data extends CI_Controller {
 	
 	public function addUser($userName,$vorname,$nachname,$identifier)
 	{
-		 	if(!$this -> User_model ->getUserIDByIdentifier($identifier) )
+			$cou=$this -> User_model ->getUserDataByIdentifier($identifier);
+			if (is_array($cou))
 			{
-		 		$value = $this -> User_model ->addUser($userName, $vorname, $nachname, $identifier);
-		 		echo '{"value":'.$value.'}';
+				echo "<pre>";
+				echo print_r($cou);
+				echo "</pre>";
+			$id = $cou[0]["ID"];
 			}
 			else
+				$id = FALSE;
+			if ($id)
 			{
-				echo '{"error":"Identifire exist in Database."}';
+				$value = $this -> User_model ->updateUser($userName, $vorname, $nachname, $identifier);
+				echo '{"value":"UpdateID'.$value.'"}';
+			}		
+			else {
+					
+				if(! $value = $this -> User_model ->getUserIDByIdentifier($identifier) )
+				{
+			 		$value = $this -> User_model ->addUser($userName, $vorname, $nachname, $identifier);
+			 		echo '{"value":"AddID'.$value.'"}';
+				}
+				else
+				{
+					echo '{"value":"Can´t update or add User."}';
+				}
 			}
 	}
 	

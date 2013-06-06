@@ -71,12 +71,28 @@ class user_model extends CI_Model {
         return $DBAnswer[0]['ID'];
     }
 
-    public function addUser($userName = FALSE, $vorname = FALSE, $nachname = FALSE,$identifier = FALSE) {
+    public function addUser($userName = FALSE, $vorname = "", $nachname ="",$identifier = FALSE) {
         if (!$userName || !$identifier) {
             return FALSE;
         }
 		
         $query = "INSERT INTO `user` (ID, UserName, Name, Vorname, Identifier) VALUES (null,'$userName', '$vorname', '$nachname', '$identifier');";
+
+        $DBAnswer = $this -> db -> query($query);
+
+        if (count($DBAnswer)>0) {
+            return $this -> db -> insert_id();
+        } else {
+            return FALSE;
+        }
+    }
+
+    public function updateUser($userName = FALSE, $vorname = FALSE, $nachname = FALSE,$identifier = FALSE) {
+        if (!$userName || !$identifier) {
+            return FALSE;
+        }
+		
+        $query = "UPDATE `user` SET UserName='$userName', Vorname='$vorname', Name='$nachname' WHERE Identifier= '$identifier';";
 
         $DBAnswer = $this -> db -> query($query);
 
